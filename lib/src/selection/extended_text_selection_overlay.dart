@@ -192,7 +192,8 @@ class ExtendedTextSelectionOverlay {
   void showToolbar() {
     assert(_toolbar == null);
     _toolbar = OverlayEntry(builder: _buildToolbar);
-    Overlay.of(context, rootOverlay: true, debugRequiredFor: debugRequiredFor).insert(_toolbar);
+    Overlay.of(context, rootOverlay: true, debugRequiredFor: debugRequiredFor)
+        .insert(_toolbar);
     _toolbarController.forward(from: 0.0);
   }
 
@@ -310,8 +311,7 @@ class ExtendedTextSelectionOverlay {
 
     final Rect editingRegion = Rect.fromPoints(
       renderObject.localToGlobal(Offset.zero),
-      renderObject
-          .localToGlobal(renderObject.size.bottomRight(Offset.zero)),
+      renderObject.localToGlobal(renderObject.size.bottomRight(Offset.zero)),
     );
 
     final bool isMultiline =
@@ -343,6 +343,7 @@ class ExtendedTextSelectionOverlay {
           midpoint,
           endpoints,
           selectionDelegate,
+          ClipboardStatusNotifier(),
         ),
       ),
     );

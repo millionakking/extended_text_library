@@ -369,7 +369,8 @@ class ExtendedCupertinoTextSelectionControls extends TextSelectionControls {
     void addToolbarButtonIfNeeded(
       String text,
       bool Function(TextSelectionDelegate) predicate,
-      void Function(TextSelectionDelegate, ClipboardStatusNotifier) onPressed,
+      void Function(TextSelectionDelegate) onPressed,
+      void Function(TextSelectionDelegate, ClipboardStatusNotifier) onPressed2,
     ) {
       if (!predicate(delegate)) {
         return;
@@ -386,17 +387,23 @@ class ExtendedCupertinoTextSelectionControls extends TextSelectionControls {
         padding: _kToolbarButtonPadding.add(arrowPadding),
         borderRadius: null,
         pressedOpacity: 0.7,
-        onPressed: () => onPressed(delegate, ClipboardStatusNotifier()),
+        onPressed: () {
+          if (onPressed != null)
+            onPressed(delegate);
+          else
+            onPressed2(delegate, ClipboardStatusNotifier());
+        },
       ));
     }
 
-    addToolbarButtonIfNeeded(localizations.cutButtonLabel, canCut, handleCut);
     addToolbarButtonIfNeeded(
-        localizations.copyButtonLabel, canCopy, handleCopy);
+        localizations.cutButtonLabel, canCut, handleCut, null);
     addToolbarButtonIfNeeded(
-        localizations.pasteButtonLabel, canPaste, handlePaste);
+        localizations.copyButtonLabel, canCopy, null, handleCopy);
     addToolbarButtonIfNeeded(
-        localizations.selectAllButtonLabel, canSelectAll, handleSelectAll);
+        localizations.pasteButtonLabel, canPaste, handlePaste, null);
+    addToolbarButtonIfNeeded(localizations.selectAllButtonLabel, canSelectAll,
+        handleSelectAll, null);
 
     return ExtendedCupertinoTextSelectionToolbar(
       barTopY: localBarTopY + globalEditableRegion.top,

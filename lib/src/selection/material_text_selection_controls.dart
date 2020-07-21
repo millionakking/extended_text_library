@@ -706,7 +706,6 @@ class ExtendedMaterialTextSelectionControls extends TextSelectionControls {
             handleCut: canCut(delegate)
                 ? () => handleCut(
                       delegate,
-                      ClipboardStatusNotifier(),
                     )
                 : null,
             handleCopy: canCopy(delegate)
@@ -718,13 +717,11 @@ class ExtendedMaterialTextSelectionControls extends TextSelectionControls {
             handlePaste: canPaste(delegate)
                 ? () => handlePaste(
                       delegate,
-                      ClipboardStatusNotifier(),
                     )
                 : null,
             handleSelectAll: canSelectAll(delegate)
                 ? () => handleSelectAll(
                       delegate,
-                      ClipboardStatusNotifier(),
                     )
                 : null,
             isAbove: fitsAbove,

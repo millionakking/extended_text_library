@@ -386,7 +386,7 @@ class ExtendedCupertinoTextSelectionControls extends TextSelectionControls {
         padding: _kToolbarButtonPadding.add(arrowPadding),
         borderRadius: null,
         pressedOpacity: 0.7,
-        onPressed: () => onPressed(delegate),
+        onPressed: () => onPressed(delegate, ClipboardStatusNotifier()),
       ));
     }
 

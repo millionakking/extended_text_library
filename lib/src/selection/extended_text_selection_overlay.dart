@@ -52,7 +52,7 @@ class ExtendedTextSelectionOverlay {
         'Usually the Navigator created by WidgetsApp provides the overlay. Perhaps your '
         'app content was created above the Navigator with the WidgetsApp builder parameter.');
     _toolbarController =
-        AnimationController(duration: fadeDuration, vsync: overlay);
+        AnimationController(duration: fadeDuration, TickerProvider: overlay);
   }
 
   /// The context in which the selection handles should appear.
@@ -116,7 +116,8 @@ class ExtendedTextSelectionOverlay {
   static const Duration fadeDuration = Duration(milliseconds: 150);
 
   AnimationController _toolbarController;
-  Animation<double> get _toolbarOpacity => _toolbarController.view;
+  Animation<double> get _toolbarOpacity =>
+      _toolbarController.view as Animation<double>;
 
   /// Retrieve current value.
   @visibleForTesting
@@ -414,14 +415,15 @@ class _TextSelectionHandleOverlayState
   Offset _dragPosition;
 
   AnimationController _controller;
-  Animation<double> get _opacity => _controller.view;
+  Animation<double> get _opacity => _controller.view as Animation<double>;
 
   @override
   void initState() {
     super.initState();
 
     _controller = AnimationController(
-        duration: ExtendedTextSelectionOverlay.fadeDuration, vsync: this);
+        duration: ExtendedTextSelectionOverlay.fadeDuration,
+        TickerProvider: this);
 
     _handleVisibilityChanged();
     widget._visibility.addListener(_handleVisibilityChanged);

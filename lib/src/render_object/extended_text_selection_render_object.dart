@@ -121,12 +121,14 @@ abstract class ExtendedTextSelectionRenderObject extends ExtendedTextRenderBox {
     ///zmt
     if (position.offset - word.start <= 1) {
       selection = TextSelection.collapsed(
-          offset: word.start,
-          affinity: endOfLine ? position.affinity : TextAffinity.downstream);
+        int: word.start,
+        // affinity: endOfLine ? position.affinity : TextAffinity.downstream
+      );
     } else {
       selection = TextSelection.collapsed(
-          offset: word.end,
-          affinity: endOfLine ? position.affinity : TextAffinity.upstream);
+        int: word.end,
+        // affinity: endOfLine ? position.affinity : TextAffinity.upstream
+      );
     }
 
     selection = handleSpecialText
@@ -251,7 +253,8 @@ abstract class ExtendedTextSelectionRenderObject extends ExtendedTextRenderBox {
       return;
     }
 
-    final List<TextSelectionPoint> endpoints = getEndpointsForSelection(selection);
+    final List<TextSelectionPoint> endpoints =
+        getEndpointsForSelection(selection);
 
     if (endpoints == null || endpoints.isEmpty) {
       return;
@@ -263,7 +266,7 @@ abstract class ExtendedTextSelectionRenderObject extends ExtendedTextRenderBox {
       startPoint.dy.clamp(0.0, size.height) as double,
     );
     context.pushLayer(
-      LeaderLayer(link: startHandleLayerLink, offset: startPoint),
+      LeaderLayer(),
       paint,
       Offset.zero,
     );
@@ -271,10 +274,10 @@ abstract class ExtendedTextSelectionRenderObject extends ExtendedTextRenderBox {
       Offset endPoint = endpoints[1].point;
       endPoint = Offset(
         endPoint.dx.clamp(0.0, size.width) as double,
-        endPoint.dy.clamp(0.0, size.height)as double,
+        endPoint.dy.clamp(0.0, size.height) as double,
       );
       context.pushLayer(
-        LeaderLayer(link: endHandleLayerLink, offset: endPoint),
+        LeaderLayer(), //link: endHandleLayerLink, offset: endPoint
         paint,
         Offset.zero,
       );

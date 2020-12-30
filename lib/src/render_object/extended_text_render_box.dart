@@ -58,7 +58,7 @@ abstract class ExtendedTextRenderBox extends RenderBox
         case ui.PlaceholderAlignment.belowBaseline:
           {
             assert(
-                RenderObject.debugCheckingIntrinsics,
+                RenderObject.debugCheckingIntrinsics as bool,
                 'Intrinsics are not available for PlaceholderAlignment.baseline, '
                 'PlaceholderAlignment.aboveBaseline, or PlaceholderAlignment.belowBaseline,');
             return false;
@@ -268,7 +268,7 @@ abstract class ExtendedTextRenderBox extends RenderBox
         break;
       }
       context.pushTransform(
-        needsCompositing,
+        needsCompositing as bool,
         offset + textParentData.offset,
         Matrix4.diagonal3Values(scale, scale, scale),
         (PaintingContext context, Offset offset) {
@@ -403,7 +403,7 @@ abstract class ExtendedTextRenderBox extends RenderBox
 
   @override
   double computeDistanceToActualBaseline(TextBaseline baseline) {
-    assert(!debugNeedsLayout);
+    assert(!(debugNeedsLayout as bool));
     assert(constraints != null);
     assert(constraints.debugAssertIsValid());
     layoutTextWithConstraints(constraints);
@@ -435,21 +435,21 @@ abstract class ExtendedTextRenderBox extends RenderBox
     textLayoutLastMinWidth = null;
   }
 
-  @override
-  bool hitTestChildren(BoxHitTestResult result, {Offset position}) {
-    RenderBox child = firstChild;
-    int childIndex = 0;
-    while (child != null &&
-        childIndex < textPainter.inlinePlaceholderBoxes.length) {
-      final bool isHit = hitTestChild(result, child, position: position);
-      if (isHit) {
-        return true;
-      }
-      child = childAfter(child);
-      childIndex += 1;
-    }
-    return false;
-  }
+  // @override
+  // bool hitTestChildren(BoxHitTestResult result, {Offset position}) {
+  //   RenderBox child = firstChild;
+  //   int childIndex = 0;
+  //   while (child != null &&
+  //       childIndex < textPainter.inlinePlaceholderBoxes.length) {
+  //     final bool isHit = hitTestChild(result, child, position: position);
+  //     if (isHit) {
+  //       return true;
+  //     }
+  //     child = childAfter(child);
+  //     childIndex += 1;
+  //   }
+  //   return false;
+  // }
 
   bool hitTestChild(
     BoxHitTestResult result,
@@ -463,21 +463,21 @@ abstract class ExtendedTextRenderBox extends RenderBox
         0.0)
       ..scale(textParentData.scale, textParentData.scale, textParentData.scale);
     final bool isHit = result.addWithPaintTransform(
-      transform: transform,
-      position: position,
-      hitTest: (BoxHitTestResult result, Offset transformed) {
-        assert(() {
-          final Offset manualPosition =
-              (position - textParentData.offset - effectiveOffset) /
-                  textParentData.scale;
-          return (transformed.dx - manualPosition.dx).abs() <
-                  precisionErrorTolerance &&
-              (transformed.dy - manualPosition.dy).abs() <
-                  precisionErrorTolerance;
-        }());
-        return child.hitTest(result, position: transformed);
-      },
-    );
+        // transform: transform,
+        // position: position,
+        // hitTest: (BoxHitTestResult result, Offset transformed) {
+        //   assert(() {
+        //     final Offset manualPosition =
+        //         (position - textParentData.offset - effectiveOffset) /
+        //             textParentData.scale;
+        //     return (transformed.dx - manualPosition.dx).abs() <
+        //             precisionErrorTolerance &&
+        //         (transformed.dy - manualPosition.dy).abs() <
+        //             precisionErrorTolerance;
+        //   }());
+        //   return child.hitTest(result, position: transformed);
+        // },
+        );
     return isHit;
   }
 }

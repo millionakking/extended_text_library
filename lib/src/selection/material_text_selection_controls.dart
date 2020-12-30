@@ -234,20 +234,20 @@ class ExtendedMaterialTextSelectionToolbarContainerRenderBox
   }
 
   // Include the parent data offset in the hit test.
-  @override
-  bool hitTestChildren(BoxHitTestResult result, {Offset position}) {
-    // The x, y parameters have the top left of the node's box as the origin.
-    final _ToolbarParentData childParentData =
-        child.parentData as _ToolbarParentData;
-    return result.addWithPaintOffset(
-      offset: childParentData.offset,
-      position: position,
-      hitTest: (BoxHitTestResult result, Offset transformed) {
-        assert(transformed == position - childParentData.offset);
-        return child.hitTest(result, position: transformed);
-      },
-    );
-  }
+  // @override
+  // bool hitTestChildren(BoxHitTestResult result, {Offset position}) {
+  //   // The x, y parameters have the top left of the node's box as the origin.
+  //   final _ToolbarParentData childParentData =
+  //       child.parentData as _ToolbarParentData;
+  //   return result.addWithPaintOffset(
+  //       // offset: childParentData.offset,
+  //       // position: position,
+  //       // hitTest: (BoxHitTestResult result, Offset transformed) {
+  //       //   assert(transformed == position - childParentData.offset);
+  //       //   return child.hitTest(result, position: transformed);
+  //       // },
+  //       );
+  // }
 
   @override
   void setupParentData(RenderBox child) {
@@ -527,33 +527,33 @@ class ExtendedMaterialTextSelectionToolbarItemsRenderBox extends RenderBox
     }
   }
 
-  @override
-  bool hitTestChildren(BoxHitTestResult result, {Offset position}) {
-    // The x, y parameters have the top left of the node's box as the origin.
-    RenderBox child = lastChild;
-    while (child != null) {
-      final _ToolbarParentData childParentData =
-          child.parentData as _ToolbarParentData;
+  // @override
+  // bool hitTestChildren(BoxHitTestResult result, {Offset position}) {
+  //   // The x, y parameters have the top left of the node's box as the origin.
+  //   RenderBox child = lastChild;
+  //   while (child != null) {
+  //     final _ToolbarParentData childParentData =
+  //         child.parentData as _ToolbarParentData;
 
-      // Don't hit test children aren't shown.
-      if (!childParentData.shouldPaint) {
-        child = childParentData.previousSibling;
-        continue;
-      }
+  //     // Don't hit test children aren't shown.
+  //     if (!childParentData.shouldPaint) {
+  //       child = childParentData.previousSibling;
+  //       continue;
+  //     }
 
-      final bool isHit = result.addWithPaintOffset(
-        offset: childParentData.offset,
-        position: position,
-        hitTest: (BoxHitTestResult result, Offset transformed) {
-          assert(transformed == position - childParentData.offset);
-          return child.hitTest(result, position: transformed);
-        },
-      );
-      if (isHit) return true;
-      child = childParentData.previousSibling;
-    }
-    return false;
-  }
+  //     final bool isHit = result.addWithPaintOffset(
+  //         // offset: childParentData.offset,
+  //         // position: position,
+  //         // hitTest: (BoxHitTestResult result, Offset transformed) {
+  //         //   assert(transformed == position - childParentData.offset);
+  //         //   return child.hitTest(result, position: transformed);
+  //         // },
+  //         );
+  //     if (isHit) return true;
+  //     child = childParentData.previousSibling;
+  //   }
+  //   return false;
+  // }
 }
 
 /// Centers the toolbar around the given anchor, ensuring that it remains on

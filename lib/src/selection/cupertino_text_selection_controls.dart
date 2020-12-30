@@ -231,7 +231,7 @@ class _ToolbarRenderBox extends RenderShiftedBox {
     final _ToolbarParentData childParentData =
         child.parentData as _ToolbarParentData;
     context.pushClipPath(
-      needsCompositing,
+      needsCompositing as bool,
       offset + childParentData.offset,
       Offset.zero & child.size,
       _clipPath(),

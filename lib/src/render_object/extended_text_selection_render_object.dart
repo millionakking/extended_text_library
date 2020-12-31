@@ -121,12 +121,12 @@ abstract class ExtendedTextSelectionRenderObject extends ExtendedTextRenderBox {
     ///zmt
     if (position.offset - word.start <= 1) {
       selection = TextSelection.collapsed(
-        int: word.start,
+        offset: word.start,
         // affinity: endOfLine ? position.affinity : TextAffinity.downstream
       );
     } else {
       selection = TextSelection.collapsed(
-        int: word.end,
+        offset: word.end,
         // affinity: endOfLine ? position.affinity : TextAffinity.upstream
       );
     }
